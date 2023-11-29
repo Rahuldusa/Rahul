@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  {% include 'cdnlines.html' %}
+  {% include 'empmenu.html' %}
+  <style media="screen">
+  .r2{
+    background-color:#EFF4F5;
+    height: auto;
+    padding-top:30px;
+  }
+  .r3{
+    background-color:#EFF4F5;
+    height: 800px;
+
+  }
+  #welcome{
+    text-transform: capitalize;
+  }
+  .form-control{
+
+    height: auto;
+    border:1px solid black;
+    border-radius: 15px;
+    background-color: white;
+  }
+  .form-control:hover{
+    box-shadow:0px 0px 40px white;
+  }
+  .btn{
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  .ipadview_and_desktop {
+        display: none;
+  }
+
+      /* Style for desktop view */
+      @media (min-width: 767px) {
+          .ipadview_and_desktop {
+              display: block;
+          }
+          .mobile {
+                display: none;
+          }
+          #username{
+            margin-left: 20px;
+
+          }
+          #email{
+            margin-left: 98px;
+          }
+          #leave_type{
+            margin-left: 62px;
+          }
+          #from_date{
+            margin-left: 63px;
+          }
+          #to_date{
+            margin-left: 84px;
+          }
+          #description{
+            margin-left: 57px;
+          }
+          input,select, textarea{
+            margin-top: 10px;
+          }
+          .btn{
+            font-size: 13px;
+          }
+
+        }
+
+  /* Style for iPad view */
+  @media (max-width: 550px){
+    .mobile {
+        display: block;
+    }
+    .ipadview_and_desktop {
+        display: none;
+    }
+
+    .form-control{
+      font-size:12px;
+    }
+    .btn{
+      font-size: 10px;
+      margin-top: -10px;
+    }
+
+
+  }
+  </style>
+  <body>
+    <div class="container-fluid mobile">
+      <div class="row r2">
+        <div class="col-1"></div>
+        <div class="col-10 mt-2">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control mt-1" action="" method="post">
+            <center>
+              <h5>Apply Leave</h5>
+              </center>
+
+              {% csrf_token %}
+
+              <label for="username">Employee Name:</label>
+              <input class="form-control" type="text" name="username" value="{{user.username}}" readonly><br>
+
+              <label for="email">Email:</label>
+              <input class="form-control"  value="{{user.email}}" id="email1" type="email" name="email" readonly  required><br>
+
+              <label for="leave_type">leave Type:</label>
+              <select class="form-control leave_type"  name="leave_type">
+                {% for i in leave_type_list %}
+                <option value="{{i.leave_name}}">{{i.leave_name}}</option>
+                {% endfor %}
+
+              </select><br>
+
+              <label for="from_date" >From Date:</label>
+              <input class="form-control"    name="from_date"  type="date" class="datepicker" autocomplete="off" placeholder="date of joining" ><br>
+              {% if error_message1 %}
+              <p style="font-size: 9px;  color: red;">{{error_message1}}</p>
+              {% endif %}
+              <label for="to_date">To Date:</label>
+              <input  name="to_date" type="date" class="datepicker form-control" autocomplete="off" placeholder="date of joining" ><br>
+              {% if error_message2 %}
+              <p style="font-size: 9px; color: red;">{{error_message2}}</p>
+              {% endif %}
+              <label for="description" >Desrciption:</label>
+              <textarea class="form-control" name="description"  rows="2"; required></textarea><br>
+
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Apply</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'emp_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+
+              </center>
+
+
+          </form>
+
+        </div>
+
+
+      </div>
+      <div class="col-1"></div>
+
+    </div>
+    {% if success_message %}
+      <script>
+      // JavaScript code to display the success message as an alert
+      window.onload = function() {
+        alert("{{ success_message }}");
+
+      };
+      </script>
+    {% endif %}
+
+    {% if error_messages %}
+      <script>
+        // JavaScript code to display the error message as an alert
+        window.onload = function () {
+          alert("{{ error_messages }}");
+        };
+      </script>
+    {% endif %}
+
+
+
+
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-8 mt-3">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control mt-2" action="" method="post">
+            <center>
+              <h5>Apply Leave</h5>
+              </center>
+
+              {% csrf_token %}
+              {% if error_message1 %}
+              <p style="font-size: 16px; margin-left: 100px; color: red;">{{error_message1}}</p>
+              {% endif %}
+              {% if error_message2 %}
+              <p style="font-size: 16px;  margin-left: 100px; color: red;">{{error_message2}}</p>
+              {% endif %}
+
+              <label style="margin-left: 100px;" for="username">Employee Name:</label>
+              <input id="username" type="text" name="username" value="{{username}}" readonly ><br>
+
+              <label style="margin-left: 100px;" for="email">Email:</label>
+              <input id="email" value="{{user.email}}" id="email1" type="email" name="email" readonly  required><br>
+
+              <label style="margin-left: 100px;"  for="leave_type">leave Type:</label>
+              <select id="leave_type" class="leave_type" name="leave_type">
+                {% for i in leave_type_list %}
+                <option value="{{i.leave_name}}">{{i.leave_name}}</option>
+                {% endfor %}
+
+              </select><br>
+
+              <label style="margin-left: 100px;"  for="from_date" >From Date:</label>
+              <input id="from_date" name="from_date"  type="date" class="datepicker" autocomplete="off" placeholder="date of joining" ><br>
+              
+              <label style="margin-left: 100px;"  for="to_date">To Date:</label>
+              <input id="to_date"  name="to_date" type="date" class="datepicker" autocomplete="off" placeholder="date of joining" ><br>
+              
+              <label style="margin-left: 100px;"  for="description" >Desrciption:</label>
+              <textarea id="description" name="description"  rows="2"; required></textarea><br>
+
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Apply</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'emp_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+
+              </center>
+
+
+          </form>
+
+        </div>
+        <div class="col-md-3"></div>
+
+      </div>
+      <div class="row r3"></div>
+
+    </div>
+
+    {% if success_message %}
+      <script>
+      // JavaScript code to display the success message as an alert
+      window.onload = function() {
+        alert("{{ success_message }}");
+
+      };
+      </script>
+    {% endif %}
+
+    {% if error_messages %}
+      <script>
+        // JavaScript code to display the error message as an alert
+        window.onload = function () {
+          alert("{{ error_messages }}");
+        };
+      </script>
+    {% endif %}
+    <div class="row r3">
+
+    </div>
+
+  </body>
+</html>

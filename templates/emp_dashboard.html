@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  {% include 'cdnlines.html' %}
+  {% include 'empmenu.html' %}
+  <style media="screen">
+
+  .r2{
+    background-color:#EFF4F5;
+    height: auto;
+    padding-top:30px;
+  }
+  .r3{
+    background-color:#EFF4F5;
+    height: 800px;
+
+  }
+  #welcome{
+    text-transform: capitalize;
+  }
+
+
+  .ipadview_and_desktop {
+        display: none;
+  }
+  @media (min-width: 767px) {
+      .ipadview_and_desktop {
+          display: block;
+      }
+      .mobile {
+            display: none;
+      }
+
+  }
+  /* Style for iPad view */
+  @media (max-width: 550px){
+    .mobile {
+        display: block;
+    }
+    .ipadview_and_desktop {
+        display: none;
+    }
+
+
+  }
+  </style>
+
+  <body>
+
+    <div class="container-fluid mobile">
+      <div class="row r2">
+        <div class="col-1"></div>
+        <div class="col-11">
+            <h4 id='welcome' >Welcome {{user}}</h4>
+        </div>
+
+      </div>
+      <div class="row r3"><div class="col-md-12"></div></div>
+    </div>
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-7">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+        </div>
+      <div class="row r3"><div class="col-md-12"></div></div>
+    </div>
+
+  </body>
+</html>

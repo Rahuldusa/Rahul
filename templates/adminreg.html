@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+  </head>
+  {% include 'cdnlines.html' %}
+  {% include 'homemenu.html' %}
+  <style media="screen">
+
+    .r2{
+      background-color:#EFF4F5;
+      height: auto;
+      padding-top:30px;
+    }
+    .r3{
+      background-color:#EFF4F5;
+      height: 100px;
+
+    }
+    .form-control{
+      width: 100%;
+      height: auto;
+      border:1px solid black;
+      border-radius: 15px;
+
+      background-color: white;
+    }
+    .form-control:hover{
+      box-shadow:0px 0px 40px white;
+    }
+    .ipadview_and_desktop {
+          display: none;
+      }
+
+      .btn{
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+
+    /* Style for desktop view */
+      @media (min-width: 767px) {
+          .ipadview_and_desktop {
+              display: block;
+          }
+          .mobile {
+                display: none;
+            }
+            .form-control{
+
+              width: 90%;
+            }
+            label{
+              margin-left: 10px;
+            }
+    #password1{
+      margin-top: 10px;
+      margin-left: 61px;
+    }
+    #confirm_password1{
+      margin-top: 10px;
+    }
+    #username{
+      margin-top: 10px;
+      margin-left: 57px;
+    }
+    #mobile_number{
+      margin-top: 10px;
+      margin-left: 15px;
+    }
+    #email{
+      margin-top: 10px;
+      margin-left: 89px;
+    }
+    #last_name{
+      margin-top: 10px;
+      margin-left: 53px;
+    }
+    #first_name{
+      margin-top: 10px;
+      margin-left: 52px;
+    }
+    #admin_id{
+      margin-top: 10px;
+      margin-left: 61px;
+    }
+    #checkbox{
+      margin-top: 0px;
+      margin-left: 22%;
+    }
+
+
+      }
+
+    /* Style for iPad view */
+      @media (max-width: 550px){
+        .mobile {
+            display: block;
+        }
+        .ipadview_and_desktop {
+            display: none;
+        }
+
+
+      }
+
+  </style>
+  <body>
+    <link rel="stylesheet" href="path-to-bootstrap.css">
+    <div class="container-fluid mobile">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+          <h4 id='welcome' >WELCOME TO EMPLOYEE LEAVE MANAGEMENT SYSTEM</h4>
+          <form   class="form-control" method="post">
+            <center>
+              <h5>Add Admin</h5>
+            </center>
+            {% csrf_token %}
+
+            <!-- Admin ID -->
+            <div class="">
+              <label for="admin_id">Admin ID:</label>
+              <input  class="form-control" type="text" name="admin_id" id="admin_id" pattern="^([a-z]{0,5}[A-Z]{0,5}\d{3,5})$" maxlength="10" placeholder="[3-5]alpha+[3-5]number" required>
+              {% if error_message_adminid %}
+              <div class="">
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; " >{{ error_message_adminid }}</p>
+
+              </div>
+              {% endif %}
+              {% if error_message_admin_exist %}
+              <div class="">
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; ">{{ error_message_admin_exist }}</p>
+
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- First Name -->
+            <div class="">
+              <label for="first_name">First Name:</label>
+              <input class="form-control" type="text" id="first_name" name="first_name" required>
+            </div>
+            <!-- Last Name -->
+            <div class="">
+              <label for="last_name">Last Name:</label>
+              <input class="form-control"  type="text" id="last_name" name="last_name" required>
+            </div>
+            <!-- Email -->
+            <div class="">
+              <label for="email">Email:</label>
+              <input class="form-control"  type="email" id="email" name="email" required>
+            </div>
+            <!-- Mobile Number -->
+            <div class="">
+              <label for="mobile_number">Mobile Number:</label>
+              <input class="form-control" type="text" id="mobile_number" name="mobile_number" maxlength="10" required pattern="^[6-9]\d{9}$" title="Enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.">
+              {% if mobile_number_error %}
+              <p style="color: red;">{{ mobile_number_error }}</p>
+              {% endif %}
+            </div>
+            <div class="">
+              <label for="username">username:</label>
+              <input class="form-control"  id="username" type="text" name="username" value="" required>
+              {% if error_message_username %}
+              <div class="">
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; " >{{ error_message_username }}</p>
+
+              </div>
+              {% endif %}
+            </div>
+            <div class="">
+              <label for="password">Password:</label>
+              <input class="form-control" type="password" name="password" id="password" required><br>
+              <span id="passwordError" style="font-size: 12px;  color: red;">{{ error_message_password }}</span>
+            </div>
+
+            <div class="">
+              <label for="confirm_password">Confirm Password:</label>
+              <input class="form-control" type="password" name="confirm_password" id="confirm_password" required><br>
+              <span id="confirmPasswordError" style=" font-size: 12px; color: red;">{{ error_message_confirm }}</span>
+            </div>
+            <div class="">
+              <input id="checkbox" type="checkbox" onclick="myFunction()"> Show Password
+            </div>
+
+            <center>
+            <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Register</button>
+            <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+            <a href="{% url 'home' %}" class="btn btn-sm btn-secondary small-btn">Home</a>
+
+            </center>
+
+          </form>
+
+
+            {% if success_message %}
+            <script>
+            // JavaScript code to display the success message as an alert
+              window.onload = function() {
+                alert("{{ success_message }}");
+              };
+              </script>
+          {% endif %}
+          {% if error_message %}
+            <script>
+              // JavaScript code to display the success message as an alert
+              window.onload = function() {
+                alert("{{ error_message }}");
+              };
+              </script>
+          {% endif %}
+        </div>
+      </div>
+      <div class="row r3"></div>
+    </div>
+
+
+
+
+
+    <div class="container-fluid ipadview_and_desktop ">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-7">
+          <h4 id='welcome' >WELCOME TO EMPLOYEE LEAVE MANAGEMENT SYSTEM</h4>
+          <form   class="form-control" method="post">
+            <center>
+              <h5>Add Admin</h5>
+            </center>
+            {% csrf_token %}
+            <!-- Admin ID -->
+            <div class="">
+          <label for="admin_id">Admin ID:</label>
+          <input type="text" name="admin_id" id="admin_id" maxlength="10" pattern="^([a-z]{0,5}[A-Z]{0,5}\d{3,5})$" required>
+          {% if error_message_adminid %}
+          <div class="">
+            <p style="color:red; font-size: 12px; margin-bottom:-5px; margin-left:150px;" >{{ error_message_adminid }}</p>
+
+          </div>
+          {% endif %}
+          {% if error_message_admin_exist %}
+          <div class="">
+            <p style="color:red; font-size: 12px; margin-bottom:-5px; margin-left:150px;">{{ error_message_admin_exist }}</p>
+
+          </div>
+          {% endif %}
+      </div>
+
+            <!-- First Name -->
+            <div class="">
+              <label for="first_name">First Name:</label>
+              <input type="text" id="first_name" name="first_name" required>
+            </div>
+            <!-- Last Name -->
+            <div class="">
+              <label for="last_name">Last Name:</label>
+              <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <!-- Email -->
+            <div class="">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <!-- Mobile Number -->
+            <div class="">
+              <label for="mobile_number">Mobile Number:</label>
+              <input type="text" id="mobile_number" maxlength="10" name="mobile_number" required pattern="^[6-9]\d{9}$" title="Enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.">
+
+            </div>
+            <div class="">
+              <label for="username">username:</label>
+              <input id="username" type="text" name="username" value="" required>
+              {% if error_message_username %}
+              <div class="">
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; margin-left:150px;" >{{ error_message_username }}</p>
+
+              </div>
+              {% endif %}
+            </div>
+            <div class="">
+              <label for="password">Password:</label>
+              <input type="password" name="password" id="password1" required><br>
+              <div class="" style="margin-left:150px;">
+                <span id="passwordError" style="font-size: 12px; margin-bottom:-5px;  color: red;">{{ error_message_password }}</span>
+              </div>
+
+            </div>
+
+            <div class="">
+              <label for="confirm_password">Confirm Password:</label>
+              <input type="password" name="confirm_password" id="confirm_password1" required><br>
+              <span id="confirmPasswordError" style="font-size: 12px; margin-bottom:-5px; margin-left:150px; color: red;">{{ error_message_confirm }}</span>
+            </div>
+            <div class="">
+              <input id="checkbox" type="checkbox" onclick="myFunction1()"> Show Password
+            </div>
+
+
+            <center>
+            <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Register</button>
+            <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+            <a href="{% url 'home' %}" class="btn btn-sm btn-secondary small-btn">Home</a>
+
+            </center>
+
+          </form>
+
+            {% if success_message %}
+            <script>
+            // JavaScript code to display the success message as an alert
+              window.onload = function() {
+                alert("{{ success_message }}");
+              };
+              </script>
+
+          {% endif %}
+          {% if error_message %}
+            <script>
+              // JavaScript code to display the success message as an alert
+              window.onload = function() {
+                alert("{{ error_message }}");
+              };
+              </script>
+          {% endif %}
+
+
+        </div>
+        <div class="col-md-2"></div>
+
+      </div>
+      <div class="row r3"></div>
+
+
+    </div>
+
+
+
+
+    <script>
+
+    function myFunction() {
+            var passwordInput = document.getElementById("password");
+            var confirmPasswordInput = document.getElementById("confirm_password");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                confirmPasswordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+                confirmPasswordInput.type = "password";
+            }
+        }
+
+    function myFunction1() {
+    var passwordInput = document.getElementById("password1");
+    var confirmPasswordInput = document.getElementById("confirm_password1");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        confirmPasswordInput.type = "text";
+    }
+    else {
+        passwordInput.type = "password";
+        confirmPasswordInput.type = "password";
+    }
+    }
+
+
+      function validateForm() {
+      var admin_id = document.getElementById('admin_id').value;
+      var first_name = document.getElementById('first_name').value;
+      var last_name = document.getElementById('last_name').value;
+      var email = document.getElementById('email').value;
+      var mobile_number = document.getElementById('mobile_number').value;
+
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      var confirm_password = document.getElementById('confirm_password').value;
+
+      if (!admin_id || !first_name || !last_name || !email || !mobile_number || !username || !password || !confirm_password) {
+          alert('Please provide all required fields.');
+          return false; // Prevent form submission
+      }
+      var successMessage = "{{ success_message }}";
+      var errorMessage = "{{ error_message }}";
+
+      if (successMessage) {
+        alert(successMessage);
+      }
+
+      if (errorMessage) {
+        alert(errorMessage);
+      }
+
+
+      return true; // Allow form submission
+    }
+  </script>
+  </body>
+</html>

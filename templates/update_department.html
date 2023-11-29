@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LMS</title>
+  </head>
+  {% include 'adminmenu.html' %}
+  {% include 'cdnlines.html' %}
+  </head>
+  <style media="screen">
+  .r2{
+    background-color:#EFF4F5;
+    height: auto;
+    padding-top:30px;
+  }
+  .r3{
+    background-color:#EFF4F5;
+    height: 100px;
+  }
+
+  .form-control{
+    width: 100%;
+    height: auto;
+    border:1px solid black;
+    border-radius: 15px;
+
+    background-color: white;
+  }
+  .form-control:hover{
+    box-shadow:0px 0px 40px white;
+  }
+  .ipadview_and_desktop {
+        display: none;
+  }
+  .btn{
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  /* Style for desktop view */
+  @media (min-width: 767px) {
+      .ipadview_and_desktop {
+          display: block;
+      }
+      .mobile {
+            display: none;
+      }
+      .form-control{
+        padding-left: 20px;
+        width:100%;
+      }
+      #dep_name{
+        margin-left: 40px;
+      }
+      #dep_short_name{
+
+      }
+      #dep_code{
+        margin-left: 46px;
+      }
+
+  }
+  /* Style for iPad view */
+  @media (max-width: 550px){
+    .mobile {
+        display: block;
+    }
+    .ipadview_and_desktop {
+        display: none;
+    }
+
+  }
+  </style>
+  <body>
+    <div class="container-fluid mobile">
+      <div class="row r2">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control" action="" method="post">
+            <center>
+              <h5>Update Department</h5>
+            </center>
+            {% csrf_token %}
+            {% if error_messages_name %}
+                <p Style="color:red; font-size:14px;  margin-left:2%; margin-bottom:-20px;">{{error_messages_name}}</p>
+              {% endif %}
+              {% if error_messages_short %}
+                <p Style="color:red; font-size:14px; margin-left:2%; margin-bottom:-20px;">{{error_messages_short}}</p>
+              {% endif %}
+            <div class="">
+              <label for="dep_name">Department Name:</label>
+              <input class="form-control" id="dep_name" type="text" name="dep_name" value="{{data.dep_name}}" required>
+
+            </div><br>
+            <div class="">
+              <label for="dep_short_name">Department Short Name:</label>
+              <input class="form-control" id="dep_short_name" type="text" name="dep_short_name" value="{{data.dep_short_name}}" required>
+
+            </div><br>
+            <div class="">
+              <label for="dep_code">Department Code:</label>
+              <input class="form-control"  type="text" name="dep_code" value="{{data.dep_code}}" maxlength="10" required>
+            </div>
+            <div class="">
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Update</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+              </center>
+
+            </div>
+          </form>
+        {% if success_message %}
+          <script>
+          // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ success_message }}");
+              window.location.href = "{% url 'manage_department' %}";
+            };
+            </script>
+        {% endif %}
+        {% if error_messages %}
+          <script>
+            // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ error_messages }}");
+            };
+            </script>
+        {% endif %}
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+      <div class="row r3"></div>
+    </div>
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-7">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control" action="" method="post">
+            <center>
+              <h5>Update Department</h5>
+            {% csrf_token %}
+            {% if error_messages_name %}
+              <p Style="color:red; margin-left: -86px; font-size:16px;  ">{{error_messages_name}}</p>
+            {% endif %}
+            {% if error_messages_short %}
+              <p Style="color:red; margin-left: -86px; font-size:16px;">{{error_messages_short}}</p>
+            {% endif %}
+            <div class="">
+              <label for="dep_name">Department Name:</label>
+              <input id="dep_name" type="text" name="dep_name" value="{{data.dep_name}}" required>
+
+            </div><br>
+            <div class="">
+              <label for="dep_short_name">Department Short Name:</label>
+              <input id="dep_short_name" type="text" name="dep_short_name" value="{{data.dep_short_name}}" required>
+
+            </div><br>
+            <div class="">
+              <label for="dep_code">Department Code:</label>
+              <input id="dep_code" type="text" name="dep_code" value="{{data.dep_code}}" maxlength="10" required>
+            </div>
+            <div class="">
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Update</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+              </center>
+            </div>
+            </center>
+          </form>
+        {% if success_message %}
+          <script>
+          // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ success_message }}");
+              window.location.href = "{% url 'manage_department' %}";
+            };
+            </script>
+        {% endif %}
+        {% if error_messages %}
+          <script>
+            // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ error_messages }}");
+            };
+            </script>
+        {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="row r3"></div>
+    </div>
+  </body>
+</html>

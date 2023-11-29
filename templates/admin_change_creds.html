@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LMS</title>
+  </head>
+  {% include 'adminmenu.html' %}
+  {% include 'cdnlines.html' %}
+  <style media="screen">
+
+  .r2{
+    background-color:#EFF4F5;
+    height: auto;
+    padding-top:30px;
+  }
+  .r3{
+    background-color:#EFF4F5;
+    height: 800px;
+
+  }
+  #welcome{
+    text-transform: capitalize;
+  }
+  .form-control{
+
+    height: auto;
+    border:1px solid black;
+    border-radius: 15px;
+    background-color: white;
+  }
+  .form-control:hover{
+    box-shadow:0px 0px 40px white;
+  }
+  .btn{
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+  .ipadview_and_desktop {
+        display: none;
+  }
+    @media (min-width: 768px) and (max-width:1024px){
+        .ipadview_and_desktop {
+            display: block;
+        }
+        .mobile {
+              display: none;
+        }
+        #admin{
+          margin-left: 0px;
+        }
+        .form-control{
+          width: 140%;
+
+        }
+
+    }
+
+  @media (min-width: 767px)  {
+      .ipadview_and_desktop {
+          display: block;
+      }
+      .mobile {
+            display: none;
+      }
+      label{
+        margin-left: 10px;
+      }
+
+
+      #checkbox{
+        margin-top: 0px;
+        margin-left: 180px;
+      }
+      #old_password1{
+        margin-top: 10px;
+        margin-left: 66px;
+      }
+      #confirm_new_password1{
+        margin-top: 10px;
+      }
+      #new_password1{
+        margin-top: 10px;
+        margin-left: 61px;
+      }
+      #new_username1{
+        margin-top: 10px;
+        margin-left: 56px;
+      }
+
+  }
+
+
+  @media  (min-width: 551px) and (max-width: 767px) {
+      .ipadview_and_desktop {
+          display: block;
+      }
+      .mobile {
+            display: none;
+      }
+      label{
+        margin-left: 0px;
+      }
+      #admin{
+        margin-left: 35px;
+        margin-bottom: 20px;
+      }
+
+      .form-control{
+        width: 90%;
+        padding-left: 20px;
+      }
+      #checkbox{
+        margin-top: 0px;
+        margin-left: 180px;
+      }
+      #old_password1{
+        margin-top: 10px;
+        margin-left: 66px;
+      }
+      #confirm_new_password1{
+        margin-top: 10px;
+      }
+      #new_password1{
+        margin-top: 10px;
+        margin-left: 61px;
+      }
+      #new_username1{
+        margin-top: 10px;
+        margin-left: 56px;
+      }
+
+    }
+  /* Style for iPad view */
+  @media (max-width: 550px){
+    .mobile {
+        display: block;
+    }
+    .ipadview_and_desktop {
+        display: none;
+    }
+
+
+  }
+  </style>
+
+  <body>
+    <div class="container-fluid mobile">
+      <div class="row r2">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <h4 id='welcome' >Welcome {{user}}</h4>
+            <form class="form-control" method="post" action="">
+              <center>
+                <h5>Change Admin Credintials</h5>
+              </center>
+              {% csrf_token %}
+              <label for="old_password">Old Password:</label>
+              <input id="old_password" class="form-control"  type="password" name="old_password" required><br>
+
+              <label for="new_username">New Username:</label>
+              <input id="new_username" class="form-control"  type="text" name="new_username" required><br>
+              {% if error_message_u %}
+              <p style=" font-size: 12px; margin-left: 40px; color: red;">{{ error_message_u }}</p>
+              {% endif %}
+
+              <label for="new_password">New Password:</label>
+              <input class="form-control"  id="new_password" type="password" name="new_password" required><br>
+
+              <label for="confirm_new_password">Confirm New Password:</label>
+              <input class="form-control"  id="confirm_new_password" type="password" name="confirm_new_password" required><br>
+              {% if error_message_p %}
+              <p style=" font-size: 12px; margin-left: 40px; color: red;">{{ error_message_p }}</p>
+              {% endif %}
+
+              <div class="">
+                <input id="checkbox" type="checkbox" onclick="myFunction()"> Show Password
+              </div>
+
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Register</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Home</a>
+              </center>
+            </form>
+        </div>
+        <div class="col-1"></div>
+      </div>
+      <div class="row r3">
+        <div class="col-12"></div>
+      </div>
+    </div>
+    {% if success_message %}
+      <script>
+      // JavaScript code to display the success message as an alert
+      window.onload = function() {
+        alert("{{ success_message }}");
+        window.location.href = "{% url 'admin_login' %}";
+      };
+      </script>
+    {% endif %}
+
+    {% if error_messages %}
+      <script>
+        // JavaScript code to display the error message as an alert
+        window.onload = function () {
+          alert("{{ error_messages }}");
+        };
+      </script>
+    {% endif %}
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+            <h4 id='welcome' >Welcome {{user}}</h4>
+            <form  class="form-control" method="post" action="">
+              <center>
+                <h5>Change Admin Credintials</h5>
+              </center>
+              {% csrf_token %}
+              <label for="old_password">Old Password:</label>
+              <input id="old_password1" type="password" name="old_password" required><br>
+
+              <label for="new_username">New Username:</label>
+              <input id="new_username1" type="text" name="new_username" required><br>
+              {% if error_message_u %}
+              <p style="font-size: 12px; margin-left: 40px; color: red;">{{ error_message_u }}</p>
+              {% endif %}
+
+              <label for="new_password">New Password:</label>
+              <input id="new_password1" type="password" name="new_password" required><br>
+
+              <label for="confirm_new_password">Confirm New Password:</label>
+              <input id="confirm_new_password1" type="password" name="confirm_new_password" required><br>
+              {% if error_message_p %}
+              <p style=" font-size: 12px; margin-left: 40px; color: red;">{{ error_message_p }}</p>
+              {% endif %}
+
+              <div class="">
+                <input id="checkbox" type="checkbox" onclick="myFunction1()"> Show Password
+              </div>
+
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Change</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+
+              </center>
+            </form>
+
+
+        </div>
+        <div class="col-md-4"></div>
+
+      </div>
+      <div class="row r3"><div class="col-md-12"></div>
+
+      </div>
+    </div>
+    {% if success_message %}
+      <script>
+      // JavaScript code to display the success message as an alert
+      window.onload = function() {
+        alert("{{ success_message }}");
+        window.location.href = "{% url 'admin_login' %}";
+      };
+      </script>
+    {% endif %}
+
+    {% if error_messages %}
+      <script>
+        // JavaScript code to display the error message as an alert
+        window.onload = function () {
+          alert("{{ error_messages }}");
+        };
+      </script>
+    {% endif %}
+
+
+    <script>
+    function myFunction() {
+    var passwordInput = document.getElementById("new_password");
+    var confirmPasswordInput = document.getElementById("confirm_new_password");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        confirmPasswordInput.type = "text";
+    }
+    else {
+        passwordInput.type = "password";
+        confirmPasswordInput.type = "password";
+    }
+    }
+        function myFunction1() {
+        var passwordInput = document.getElementById("new_password1");
+        var confirmPasswordInput = document.getElementById("confirm_new_password1");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            confirmPasswordInput.type = "text";
+        }
+        else {
+            passwordInput.type = "password";
+            confirmPasswordInput.type = "password";
+        }
+        }
+
+
+
+    </script>
+  </body>
+</html>

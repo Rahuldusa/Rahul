@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LMS</title>
+  </head>
+  {% include 'adminmenu.html' %}
+  {% include 'cdnlines.html' %}
+
+  <style media="screen">
+  .r2{
+    background-color:#EFF4F5;
+    height: auto;
+    padding-top:30px;
+  }
+  .r3{
+    background-color:#EFF4F5;
+    height: 100px;
+
+  }
+  .form-control{
+    width: 100%;
+    height: auto;
+    border:1px solid black;
+    border-radius: 15px;
+
+    background-color: white;
+  }
+  .form-control:hover{
+    box-shadow:0px 0px 40px white;
+  }
+  .ipadview_and_desktop {
+        display: none;
+    }
+
+    .btn{
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+
+    /* Style for desktop view */
+    @media (min-width: 767px) {
+        .ipadview_and_desktop {
+            display: block;
+        }
+        .mobile {
+            display: none;
+        }
+        .form-control{
+          font-size: 14px;
+          width: 100%;
+        }
+        label{
+          margin-left: 0px;
+        }
+
+        #left{
+          margin-left: 20px;
+        }
+
+    }
+
+    /* Style for iPad view */
+    @media (max-width: 550px){
+      .mobile {
+          display: block;
+      }
+      .ipadview_and_desktop {
+          display: none;
+      }
+      .form-control{
+        font-size: 12px;
+      }
+
+    }
+
+  </style>
+
+  <body>
+    <div class="container-fluid mobile">
+      <div class="row r2">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control" action="" method="post">
+            <center>
+              <h5>Add Employee</h5>
+            </center>
+              {% csrf_token %}
+
+              <label for="emp_id">Employee ID:</label>
+              <input class="form-control" type="text" id="emp_id1" name="emp_id" required><br>
+              {% if error_message_emp_id %}
+                <p style='color:red; font-size: 12px; '>{{error_message_emp_id}}</p>
+                {% endif %}
+
+                {% if error_message_emp_exist %}
+                  <p style='color:red; font-size: 12px; '>{{error_message_emp_exist}}</p>
+                  {% endif %}
+
+              <label id="emp" for="first_name">First Name:</label>
+              <input class="form-control" id="first_name1" type="text" name="first_name" required><br>
+
+              <label for="last_name">Last Name:</label>
+              <input class="form-control"  id="last_name1" type="text" name="last_name" required><br>
+
+              <label for="email">Email:</label>
+              <input class="form-control"  id="email1" type="email" name="email" required><br>
+
+
+              <label for="gender">Gender:</label>
+              <select  class="form-control"  id="gender1" name="gender" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="others">Others</option>
+            </select><br>
+
+              <label for="dob">Date of Birth:</label>
+              <input class="form-control"  id="dob1" type="date" name="dob" required><br>
+              {% if error_message_dob %}
+                <p style='color:red; font-size: 12px; '>{{error_message_dob}}</p>
+                {% endif %}
+
+
+              <label for="dep_name">Department:</label>
+
+              <select class="form-control"  id="dep1" class="dep" name="dep_name">
+                {% for i in dep_select_name %}
+                <option  value="{{i.dep_name}}">{{i.dep_name}}</option>
+                {% endfor %}
+              </select><br>
+
+
+              <label for="address">Address:</label>
+              <input class="form-control"  id="address1" type="text" name="address"><br>
+
+              <label for="city">City:</label>
+              <input class="form-control"  id="city1" type="text" name="city"><br>
+
+              <label for="country">Country:</label>
+              <input class="form-control"  id="country1" type="text" name="country"><br>
+
+              <label for="mobile_number">Mobile Number:</label>
+              <input class="form-control"  id="mobile_number" type="text" name="mobile_number" required><br>
+
+              <label for="username">username:</label>
+              <input class="form-control"  id="username1" type="text" name="username" value="" required> <br>
+              {% if error_message_username %}
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; " >{{ error_message_username }}</p>
+              {% endif %}
+
+              <label for="password">Password:</label>
+              <input class="form-control"  type="password" name="password" id="password1" required><br>
+              {% if error_message_password %}
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; " >{{ error_message_password }}</p>
+              {% endif %}
+
+              <label for="confirm_password">Confirm Password:</label>
+              <input class="form-control"   type="password" name="confirm_password" id="confirm_password1" required><br>
+              {% if error_message_confirm %}
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; " >{{ error_message_confirm }}</p>
+              {% endif %}
+
+              <input id="checkbox" type="checkbox" onclick="myFunction1()"> Show Password
+
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Add</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+              </center>
+
+          </form>
+          {% if success_message %}
+          <script>
+          // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ success_message }}");
+            };
+            </script>
+        {% endif %}
+        {% if error_message %}
+          <script>
+            // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ error_message }}");
+            };
+            </script>
+        {% endif %}
+        </div>
+        <div class="col-1"></div>
+
+      </div>
+      <div class="row r3"></div>
+    </div>
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r2">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control" action="" method="post">
+            <center>
+              <h5>Add Employee</h5>
+            </center>
+              {% csrf_token %}
+
+              {% if error_message_emp_id %}
+                <p style='color:red; font-size: 12px; margin-top:10px; '>{{error_message_emp_id}}</p>
+              {% endif %}
+
+              {% if error_message_emp_exist %}
+                <p style='color:red; font-size: 12px; margin-top:10px;'>{{error_message_emp_exist}}</p>
+              {% endif %}
+              {% if error_message_dob %}
+                <p style='color:red; font-size: 12px; '>{{error_message_dob}}</p>
+              {% endif %}
+              {% if error_message_username %}
+                <p style="color:red; font-size: 12px; margin-left:360px; margin-bottom:-5px; " >{{ error_message_username }}</p>
+              {% endif %}
+              {% if error_message_password %}
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; " >{{ error_message_password }}</p>
+              {% endif %}
+              {% if error_message_confirm %}
+                <p style="color:red; font-size: 12px; margin-bottom:-5px; " >{{ error_message_confirm }}</p>
+              {% endif %}
+
+
+              <label id="left" for="emp_id">Employee ID:</label>
+              <input style="width:90px; height:20px; margin-top:10px;" id="emp_id" type="text" name="emp_id" required><br>
+
+
+              <label id="left"  for="first_name">First Name:</label>
+              <input style="width:130px; margin-left: 12px; height:20px; margin-top:10px;"  id="first_name" type="text" name="first_name" required>
+
+              <label style="margin-left:120px;" for="last_name">Last Name:</label>
+              <input  style="width:130px; margin-left: 13px;  height:20px; margin-top:10px;" id="last_name" type="text" name="last_name" required><br>
+
+              <label id="left"  for="email">Email:</label>
+              <input  style="width:130px; margin-left: 45px;  height:20px; margin-top:10px;"  id="email" type="email" name="email" required>
+
+
+              <label style="margin-left:120px;" for="gender">Gender:</label>
+              <select  style="width:130px; margin-left: 33px;  height:20px; margin-top:10px;" id="gender" name="gender" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="others">Others</option>
+              </select><br>
+
+              <label id="left"  for="dob">Date of Birth:</label>
+              <input  style="width:130px; height:20px; margin-top:10px;" id="dob" type="date" name="dob" required>
+
+
+              <label style="margin-left:120px;" for="dep">Department:</label>
+
+              <select  style="width:130px; margin-left: 5px;  height:20px; margin-top:10px;" id="dep" class="dep" name="dep">
+                {% for i in dep_select_name %}
+                <option  value="{{i.dep_name}}">{{i.dep_name}}</option>
+                {% endfor %}
+              </select><br>
+
+
+              <label id="left"  for="address">Address:</label>
+              <input  style="width:220px; margin-left: 28px; height:20px; margin-top:10px;" id="address" type="text" name="address"><br>
+
+              <label id="left"  for="city">City:</label>
+              <input  style="width:130px; margin-left: 55px; height:20px; margin-top:10px;" id="city" type="text" name="city">
+
+              <label style="margin-left:120px;" for="country">Country:</label>
+              <input style="width:130px;  margin-left: 30px;  height:20px; margin-top:10px;" id="country" type="text" name="country"><br>
+
+              <label id="left"  for="mobile_number">Mobile No:</label>
+              <input style="width:130px; margin-left: 12px; height:20px; margin-top:10px;" id="mobile_number" type="text" maxlength="10" name="mobile_number" required>
+
+              <label style="margin-left:120px;" for="username">username:</label>
+              <input style="width:130px; margin-left: 19px;  height:20px; margin-top:10px;" id="username" type="text" name="username" value="" required><br>
+
+
+              <label id="left"  for="password">Password:</label>
+              <input style="width:130px; margin-left: 20px; height:20px; margin-top:10px;" type="password" name="password" id="password" required>
+
+              <label style="margin-left:120px;" for="confirm_password">Confirm Pass:</label>
+              <input style="width:130px; height:20px; margin-top:10px;"  type="password" name="confirm_password" id="confirm_password" required><br>
+
+
+
+              <center>
+              <input style="margin:10px;" id="checkbox" type="checkbox" onclick="myFunction()"> Show Password <br>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Add</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+              </center>
+
+
+          </form>
+          {% if success_message %}
+          <script>
+          // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ success_message }}");
+            };
+            </script>
+        {% endif %}
+        {% if error_message %}
+          <script>
+            // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ error_message }}");
+            };
+            </script>
+        {% endif %}
+        </div>
+
+      </div>
+      <div class="row r3"></div>
+    </div>
+
+    <script>
+
+    function myFunction() {
+            var passwordInput = document.getElementById("password");
+            var confirmPasswordInput = document.getElementById("confirm_password");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                confirmPasswordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+                confirmPasswordInput.type = "password";
+            }
+        }
+        function myFunction1() {
+                var passwordInput = document.getElementById("password1");
+                var confirmPasswordInput = document.getElementById("confirm_password1");
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    confirmPasswordInput.type = "text";
+                } else {
+                    passwordInput.type = "password";
+                    confirmPasswordInput.type = "password";
+                }
+            }
+
+
+    </script>
+
+  </body>
+</html>

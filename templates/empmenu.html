@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+  </head>
+  {% include 'cdnlines.html' %}
+  <style media="screen">
+    #menu__toggle_mobile {
+      opacity: 0;
+    }
+    #menu__toggle_mobile:checked + .menu__btn > span {
+      transform: rotate(45deg);
+    }
+    #menu__toggle_mobile:checked + .menu__btn > span::before {
+      top: 0;
+      transform: rotate(0deg);
+    }
+    #menu__toggle_mobile:checked + .menu__btn > span::after {
+      top: 0;
+      transform: rotate(90deg);
+    }
+    #menu__toggle_mobile:checked ~ .menu__box {
+      left: 0 !important;
+    }
+    #menu__toggle_desktop {
+      opacity: 0;
+    }
+    #menu__toggle_desktop:checked + .menu__btn > span {
+      transform: rotate(45deg);
+    }
+    #menu__toggle_desktop:checked + .menu__btn > span::before {
+      top: 0;
+      transform: rotate(0deg);
+    }
+    #menu__toggle_desktop:checked + .menu__btn > span::after {
+      top: 0;
+      transform: rotate(90deg);
+    }
+    #menu__toggle_desktop:checked ~ .menu__box {
+      left: 0 !important;
+    }
+.menu__btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  z-index: 999;
+}
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #616161;
+  transition-duration: .25s;
+}
+.menu__btn > span::before {
+  content: '';
+  top: -8px;
+}
+.menu__btn > span::after {
+  content: '';
+  top: 8px;
+}
+.menu__box {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: auto;
+  height: 100%;
+  margin-left: -15px;
+  margin-top:40px ;
+  padding-top: 10px;
+  list-style: none;
+  background-color: #FFFFFF;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+  transition-duration: .25s;
+}
+.menu__item {
+  display: block;
+  padding-top: 5px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  margin-top:10px ;
+  text-decoration: none;
+  transition-duration: .25s;
+  margin-right: 10px;
+}
+.menu__item:hover {
+  background-color: #CFD8DC;
+}
+.r1{
+  background-color: #40B3B8;
+
+  height:100%;
+}
+.container-fluid{
+  margin-top:2px;
+}
+li{
+  font-size: 12px;
+}
+/* Style the dropdown when hovering over the parent menu item */
+.menu__item.dropdown:hover .submenu {
+  display: block;
+}
+#admin{
+  text-transform: capitalize;
+  margin-top:6px;
+
+  color:white;
+}
+.ipadview_and_desktop {
+      display: none;
+}
+@media (min-width: 768px) and (max-width:1024px){
+    .ipadview_and_desktop {
+        display: block;
+    }
+    .mobile {
+          display: none;
+    }
+    #admin{
+      margin-left: -30px;
+    }
+    .menu__box{
+      width: 150px;
+    }
+}
+@media (min-width: 1025px) {
+    .ipadview_and_desktop {
+        display: block;
+    }
+    .mobile {
+          display: none;
+    }
+    #admin{
+      margin-left: -50px;
+    }
+    .menu__box{
+      width: 200px;
+    }
+    .menu__item{
+      font-size: 18px;
+    }
+}
+@media (max-width: 768px) and ((min-width: 550px)) {
+    .ipadview_and_desktop {
+        display: block;
+    }
+    .mobile {
+          display: none;
+    }
+    #admin{
+      margin-left: -20px;
+    }
+}
+
+/* Style for iPad view */
+@media (max-width: 767px){
+  .mobile {
+      display: block;
+  }
+  .ipadview_and_desktop {
+      display: none;
+  }
+  .menu__box{
+    margin-top: 38px;
+    width:185px;
+  }
+
+  .menu__btn > span::before {
+    content: '';
+    top: -6px;
+  }
+  .menu__btn > span::after {
+    content: '';
+    top: 6px;
+  }
+  .menu__btn{
+    width: 20px;
+    height: 20px;
+  }
+
+
+}
+
+
+  </style>
+  <body>
+    <div class="container-fluid mobile">
+      <div class="row r1">
+        <div class="col-1">
+          <div class="hamburger-menu ">
+          <input id="menu__toggle_mobile" type="checkbox" />
+          <label class="menu__btn" for="menu__toggle_mobile">
+            <span></span>
+          </label>
+          <ul class="menu__box">
+            <li><a class="menu__item" href="{% url 'emp_dashboard' %}"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a class="menu__item" href="{% url 'appy_leave' %}"><i class="fas fa-home"></i>Apply Leave</a></li>
+            <li><a class="menu__item" href="{% url 'leave_status' %}"><i class="fas fa-home"></i>Leave Status</a></li>
+            <li><a class="menu__item" href="{% url 'emp_change_creds' %}"><i class="fas fa-key"></i> Change Creditials</a></li>
+            <li><a class="menu__item" href="{% url 'emplogout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+          </ul>
+        </div>
+        </div>
+        <div class="col-2 ">
+          <h5  style="font-size:8px; text-align: left;  margin-top: 14px;" id='admin'>{{user}}</h5>
+        </div>
+
+        <div class="col-6 ">
+          <center>
+          <h5 style="font-size: 12px;  margin-top: 10px; color:white; "id="leave">Leave Management System</h5>
+        </center>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r1">
+        <div class="col-md-1 col1">
+          <div class="hamburger-menu ">
+          <input id="menu__toggle_desktop" type="checkbox" />
+          <label class="menu__btn" for="menu__toggle_desktop">
+            <span></span>
+          </label>
+          <ul class="menu__box">
+            <li><a class="menu__item" href="{% url 'emp_dashboard' %}"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a class="menu__item" href="{% url 'appy_leave' %}"><i class="fas fa-home"></i>Apply Leave</a></li>
+            <li><a class="menu__item" href="{% url 'leave_status' %}"><i class="fas fa-home"></i>Leave Status</a></li>
+            <li><a class="menu__item" href="{% url 'emp_change_creds' %}"><i class="fas fa-key"></i> Change Creditials</a></li>
+            <li><a class="menu__item" href="{% url 'emplogout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+          </ul>
+        </div>
+        </div>
+        <div class="col-md-2 col2">
+          <h5  style="font-size:14px; margin-top: 11px;" id='admin'>{{user}}</h5>
+        </div>
+        <div class="col-md-6 col3">
+          <center>
+          <h5 style="font-size: 18px; margin-top: 8px; color:white; "id="leave">Leave Management System</h5>
+        </center>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

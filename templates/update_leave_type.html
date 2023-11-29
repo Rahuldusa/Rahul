@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LMS</title>
+  </head>
+  {% include 'adminmenu.html' %}
+  {% include 'cdnlines.html' %}
+
+  <style media="screen">
+  .r2{
+    background-color:#EFF4F5;
+    height: auto;
+    padding-top:30px;
+  }
+  .r3{
+    background-color:#EFF4F5;
+    height: 100px;
+  }
+
+  .form-control{
+    width: 100%;
+    height: auto;
+    border:1px solid black;
+    border-radius: 15px;
+    background-color: white;
+    padding-top:10px;
+  }
+  .form-control:hover{
+    box-shadow:0px 0px 40px white;
+  }
+  .ipadview_and_desktop {
+        display: none;
+  }
+  .btn{
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  /* Style for desktop view */
+  @media (min-width: 767px) {
+      .ipadview_and_desktop {
+          display: block;
+      }
+      .mobile {
+            display: none;
+      }
+      .form-control{
+        width:100%;
+
+      }
+      #leave_name{
+        margin-left: 54px;
+      }
+      #description{
+        margin-top:10px;
+        margin-left: 45px;
+      }
+      #leave_code{
+        margin-left: 13px;
+      }
+
+  }
+  /* Style for iPad view */
+  @media (max-width: 550px){
+    .mobile {
+        display: block;
+    }
+    .ipadview_and_desktop {
+        display: none;
+    }
+
+  }
+  </style>
+  <body>
+    <div class="container-fluid mobile">
+      <div class="row r2">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control" action="" method="post">
+            <center>
+              <h5>Update Leave Type</h5>
+            </center>
+            {% csrf_token %}
+            <div class="">
+              <label id="leaves" for="leave_name">Leave Type:</label>
+              <input class="form-control" id="leave_name" type="text" name="leave_name" value="{{data.leave_name}}" required>
+              {% if error_messages_name %}
+                <p Style="color:red; font-size:14px;  margin-left:2%; margin-bottom:-20px;">{{error_messages_name}}</p>
+              {% endif %}
+            </div><br>
+            <div class="">
+              <label  id="leaves" for="leave_code">Leave Type Code:</label>
+              <input class="form-control" id="leave_code" type="text" name="leave_code" value="{{data.leave_code}}" maxlength="10" required>
+            </div>
+            <div class="">
+              <label id="leaves"  for="description">Description:</label>
+              <textarea class="form-control" name="description" value="{{data.description}}" id="description" rows="2" cols="30"></textarea>
+            </div><br>
+            <div class="">
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Update</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+              </center>
+
+            </div>
+          </form>
+        {% if success_message %}
+          <script>
+          // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ success_message }}");
+              window.location.href = "{% url 'manage_leavetypes' %}";
+            };
+            </script>
+        {% endif %}
+        {% if error_messages %}
+          <script>
+            // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ error_messages }}");
+            };
+            </script>
+        {% endif %}
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+      <div class="row r3"></div>
+    </div>
+
+
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-7">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+          <form class="form-control" action="" method="post">
+            <center>
+              <h5 style="margin-bottom:10px;">Update Leave Type</h5>
+
+            {% csrf_token %}
+            {% if error_messages_name %}
+                <p Style="color:red; font-size:16px; margin-left:-98px; ">{{error_messages_name}}</p>
+              {% endif %}
+
+            <div class="">
+              <label id="leaves" for="leave_name">Leave Type:</label>
+              <input id="leave_name" type="text" name="leave_name" value="{{data.leave_name}}" required>
+              
+            </div><br>
+            <div class="">
+              <label id="leaves" for="leave_code">Leave Type Code:</label>
+              <input id="leave_code" type="text" name="leave_code" value="{{data.leave_code}}" maxlength="10" required>
+            </div>
+            <div class="">
+              <label id="leaves" for="description">Desrciption :</label>
+              <textarea name="description" value="{{data.description}}" id="description" rows="2" cols="23"></textarea>
+            </div><br>
+            <div class="">
+              <center>
+              <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Update</button>
+              <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+              <a href="{% url 'admin_dashboard' %}" class="btn btn-sm btn-secondary small-btn">Dashboard</a>
+              </center>
+            </div>
+            </center>
+          </form>
+        {% if success_message %}
+          <script>
+          // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ success_message }}");
+              window.location.href = "{% url 'manage_leavetypes' %}";
+            };
+            </script>
+        {% endif %}
+        {% if error_messages %}
+          <script>
+            // JavaScript code to display the success message as an alert
+            window.onload = function() {
+              alert("{{ error_messages }}");
+            };
+            </script>
+        {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="row r3"></div>
+    </div>
+  </body>
+</html>

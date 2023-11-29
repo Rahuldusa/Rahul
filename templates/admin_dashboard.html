@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LMS</title>
+  </head>
+  {% include 'adminmenu.html' %}
+  {% include 'cdnlines.html' %}
+  <style media="screen">
+
+  .r2{
+    background-color:#EFF4F5;
+    height: auto;
+    padding-top: 30px;
+    
+  }
+  
+  .r0{
+    background-color:#EFF4F5;
+    height: auto;
+    margin-top: -20px;
+  }
+  .r5 {
+    background-color:#EFF4F5;
+    height: 800px;
+
+  }
+
+  .r3, .r4{
+    padding-top: 40px;
+    background-color:#EFF4F5;
+  }
+  #welcome{
+    text-transform: capitalize;
+  }
+  a{  
+    
+    text-decoration: none;  
+    color: black;
+    
+  }
+  .box{
+    font-weight: 700;
+    text-align: center; 
+    height: 90px;
+    width: 300px; 
+    padding-top: 10px;  
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #888888;
+    transition: box-shadow 0.3s;
+  }
+  .box:hover{
+    box-shadow: 7px 7px 8px #888888;
+    margin: 1px 1px 0px 0px;
+  }
+  .mbox{
+    width: 120px;
+    text-align: center;
+    font-weight: 500;
+    border-radius: 10px;
+    box-shadow: 2px 2px 6px #888888;
+    margin-top: 20px;
+    transition: box-shadow 0.3s;
+  }
+  .mbox:hover{
+    box-shadow: 4px 4px 6px #888888;
+    
+  }
+
+  .ipadview_and_desktop {
+        display: none;
+  }
+  @media (min-width: 767px) {
+      .ipadview_and_desktop {
+          display: block;
+      }
+      .mobile {
+            display: none;
+      }
+      p{
+        font-size: 22px;
+        margin-top: 10px;
+      }
+      a{
+        font-size: 20px;
+      }
+
+  }
+  /* Style for iPad view */
+  @media (max-width: 550px){
+    .mobile {
+        display: block;
+    }
+    .ipadview_and_desktop {
+        display: none;
+    }
+
+
+  }
+  </style>
+
+  <body>
+
+    <div class="container-fluid mobile">
+      
+      <div class="row r2">
+        <div class="col-2"></div>
+        <div class="col-8">
+          <h4 id='welcome' >Welcome {{user}}</h4><br>
+        </div>
+        <div class="col-2"></div>
+      </div>
+
+      <div class="row r0">
+
+        <div class="col-4"></div>
+        <div class="col-6 ">
+            
+            <p class="mbox" style="background-color: rgb(245, 245, 70);"><a  href="{% url 'admin_leaves' %}">Pending :</a> {{ pending_count }}</p>
+            <p class="mbox" style="background-color: rgb(77, 192, 77);" ><a href="{% url 'accepted_leaves' %}">Accepted :</a>{{ accepted_count }}</p>
+            <p class="mbox" style="background-color: rgb(224, 72, 72) ;"  ><a href="{% url 'reject_leaves' %}">Rejected :</a>{{ rejected_count }}</p>
+            <p class="mbox" style="background-color: rgb(88, 88, 201) ;"  ><a href="{% url 'all_leaves' %}">All :</a>{{ all_app_count }}</p>
+        </div>
+        <div class="col-2"></div>
+      </div>
+      <div class="row r5"><div class="col-md-12"></div></div>
+    </div>
+
+
+    <div class="container-fluid ipadview_and_desktop">
+      <div class="row r2">
+        <div class="col-md-3"></div>
+        <div class="col-md-7">
+          <h4 id='welcome' >Welcome {{user}}</h4>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="row r3 ">
+        <div class="col-md-3"></div>
+        <div style="background-color: rgb(245, 245, 70);" class="col-md-3 box">
+          <a href="{% url 'admin_leaves' %}">Pending:</a><br>
+          <p> {{ pending_count }}</p>
+
+        </div>
+        <div class="col-md-1"></div>
+        <div style="background-color: rgb(77, 192, 77);" class="col-md-3 box">
+          <a href="{% url 'accepted_leaves' %}">Accepted:</a><br>
+          <p>{{ accepted_count }}</p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="row r4">
+        <div class="col-md-3"></div>
+        <div style="background-color: rgb(224, 72, 72) ;" class="col-md-3 box">
+          <a href="{% url 'reject_leaves' %}">Rejected:</a><br>
+          <p>{{ rejected_count }}</p>
+        </div>
+        <div class="col-md-1"></div>
+        <div style="background-color: rgb(88, 88, 201) ;" class="col-md-3 box">
+          <a href="{% url 'all_leaves' %}">All:</a><br>
+          <p>{{ all_app_count }}</p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="row r5"><div class="col-md-12"></div></div>
+    </div>
+
+  </body>
+</html>

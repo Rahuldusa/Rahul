@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+  </head>
+  {% include 'cdnlines.html' %}
+  {% include 'homemenu.html' %}
+  <style media="screen">
+    .r2{
+      background-color:#EFF4F5;
+      height: auto;
+      padding-top:30px;
+    }
+    .r3{
+      background-color:#EFF4F5;
+      height: 100px;
+    }
+
+    .form-control{
+      width: 100%;
+      height: auto;
+      border:1px solid black;
+      border-radius: 15px;
+
+      background-color: white;
+    }
+    .form-control:hover{
+      box-shadow:0px 0px 40px white;
+    }
+    .ipadview_and_desktop {
+          display: none;
+    }
+    .btn{
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    #checkbox{
+      margin-top: 10px;
+    }
+
+    /* Style for desktop view */
+    @media (min-width: 767px) {
+        .ipadview_and_desktop {
+            display: block;
+        }
+        .mobile {
+              display: none;
+        }
+        .form-control{
+          padding-left: 20px;
+        }
+        #username{
+          margin-left: 10px;
+          margin-top: 10px;
+        }
+        #password{
+          margin-left: 14px;
+          margin-top: 10px;
+        }
+        #checkbox{
+          margin-left: 63px;
+          margin-top: 7px;
+          margin-bottom: 10px;
+        }
+    }
+    /* Style for iPad view */
+    @media (max-width: 550px){
+      .mobile {
+          display: block;
+      }
+      .ipadview_and_desktop {
+          display: none;
+      }
+
+
+    }
+
+  </style>
+  <body>
+  <div class="container-fluid mobile">
+  <div class="row r2">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <h4 id='welcome'>WELCOME TO EMPLOYEE LEAVE MANAGEMENT SYSTEM</h4>
+      <form class="form-control" action="" method="post">
+        <center>
+          <h5>Admin Login</h5>
+        </center>
+        {% csrf_token %}
+        <div class="">
+          <label for="username">Enter Username:</label>
+          <input class="form-control" type="text" name="username" value="" id="username" required>
+        </div>
+        <div class="">
+          <label for="password">Enter Password: </label>
+          <input class="form-control" type="password" name="password" id="password1" value="">
+        </div>
+        {% if error_message %}
+          <div class="">
+            <p style="color: red; font-size: 12px;">{{ error_message }}</p>
+          </div>
+        {% endif %}
+        <div class="">
+          <input id="checkbox" type="checkbox" onclick="myFunction1()"> Show Password
+        </div>
+        <center>
+          <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Login</button>
+          <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button><br>
+
+          <a href="{% url 'home' %}" class="btn btn-sm btn-warning small-btn">Home</a>
+        </center>
+      </form>
+    </div>
+    <div class="col-1"></div>
+  </div>
+  <div class="row r3"></div>
+</div>
+
+{% if error_messages %}
+  <script>
+    // JavaScript code to display the error message as an alert
+    window.onload = function () {
+      alert("{{ error_messages }}");
+    };
+  </script>
+{% endif %}
+
+{% if success_message %}
+  <script>
+    // JavaScript code to display the success message as an alert and redirect
+    window.onload = function () {
+      alert("{{ success_message }}");
+      window.location.href = "{% url 'admin_dashboard' %}";
+    };
+  </script>
+{% endif %}
+
+
+
+<div class="container-fluid ipadview_and_desktop">
+<div class="row r2">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <h4 id='welcome'>WELCOME TO EMPLOYEE LEAVE MANAGEMENT SYSTEM</h4>
+    <form class="form-control" action="" method="post">
+      <center>
+        <h5>Admin Login</h5>
+
+        {% csrf_token %}
+        <div class="">
+          <label for="username">Enter Username:</label>
+          <input type="text" name="username" value="" id="username" required>
+        </div>
+        <div class="">
+          <label for="password">Enter Password: </label>
+          <input type="password" name="password" id="password" value="">
+        </div>
+        {% if error_message %}
+          <div class="">
+            <p style="color: red; font-size: 12px;">{{ error_message }}</p>
+          </div>
+        {% endif %}
+        <div class="">
+          <input id="checkbox" type="checkbox" onclick="myFunction()"> Show Password
+        </div>
+        <center>
+          <button type="submit" name="button" class="btn btn-sm btn-primary text-white small-btn small-btn">Login</button>
+          <button type="reset" name="button" class="btn btn-sm btn-danger text-white small-btn small-btn">Clear</button>
+        
+          <a href="{% url 'home' %}" class="btn btn-sm btn-warning small-btn">Home</a>
+        </center>
+      </center>
+    </form>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<div class="row r3"></div>
+</div>
+
+{% if error_messages %}
+<script>
+  // JavaScript code to display the error message as an alert
+  window.onload = function () {
+    alert("{{ error_messages }}");
+  };
+</script>
+{% endif %}
+
+{% if success_message %}
+<script>
+  // JavaScript code to display the success message as an alert and redirect
+  window.onload = function () {
+    alert("{{ success_message }}");
+    window.location.href = "{% url 'admin_dashboard' %}";
+  };
+</script>
+{% endif %}
+
+    <script>
+          function myFunction() {
+          var passwordInput = document.getElementById("password");
+          if (passwordInput.type === "password") {
+              passwordInput.type = "text";
+            }
+            else {
+            passwordInput.type = "password";
+        }
+      }
+      function myFunction1() {
+      var passwordInput = document.getElementById("password1");
+      if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+        }
+        else {
+        passwordInput.type = "password";
+    }
+  }
+
+
+    </script>
+
+  </body>
+</html>
